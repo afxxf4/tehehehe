@@ -49,7 +49,7 @@
       position: relative;
       width: 220px;
       height: 130px;
-      margin: 0 auto;
+      margin: 20px auto;
       background: #6b3e2e;
       border-radius: 12px;
       box-shadow: inset -6px -6px 0 #5a3225;
@@ -62,6 +62,7 @@
       height: 45px;
       background: #f5d6c6;
       border-radius: 12px 12px 0 0;
+      box-shadow: inset 0 -6px #e9bfa8;
     }
 
     .candle {
@@ -70,6 +71,7 @@
       width: 10px;
       height: 35px;
       background: #fff;
+      border-radius: 2px;
     }
 
     .candle:nth-child(2) { left: 40px; }
@@ -101,7 +103,7 @@
       bottom: -120px;
       width: 60px;
       height: 80px;
-      border-radius: 50%;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
       background: #c58c5d;
       animation: float 6s linear forwards;
     }
@@ -150,44 +152,46 @@
   </div>
 
   <script>
-    const scenes = document.querySelectorAll('.scene');
-    let current = 0;
+    window.onload = () => {
+      const scenes = document.querySelectorAll('.scene');
+      let current = 0;
 
-    function showScene(index) {
-      scenes.forEach(s => { s.classList.remove('active', 'fade-in'); });
-      scenes[index].classList.add('active');
-      setTimeout(() => scenes[index].classList.add('fade-in'), 50);
-    }
-
-    function blowCandles() {
-      document.querySelectorAll('.flame').forEach(f => f.style.display = 'none');
-      setTimeout(releaseBalloons, 1000);
-    }
-
-    function releaseBalloons() {
-      for (let i = 0; i < 12; i++) {
-        const b = document.createElement('div');
-        b.classList.add('balloon');
-        b.style.left = Math.random() * 90 + "vw";
-        b.style.background = ["#c58c5d", "#a47148", "#8b5e34", "#6b4226", "#e6ccb2"][i % 5];
-        b.style.animationDuration = (4 + Math.random() * 2) + "s";
-        document.body.appendChild(b);
+      function showScene(index) {
+        scenes.forEach(s => { s.classList.remove('active', 'fade-in'); });
+        scenes[index].classList.add('active');
+        setTimeout(() => scenes[index].classList.add('fade-in'), 50);
       }
-    }
 
-    document.body.addEventListener('click', () => {
-      if (current === 2) {
-        blowCandles();
-        current++;
-        return;
+      function blowCandles() {
+        document.querySelectorAll('.flame').forEach(f => f.style.display = 'none');
+        setTimeout(releaseBalloons, 1000);
       }
-      if (current < scenes.length - 1) {
-        current++;
-        showScene(current);
-      }
-    });
 
-    showScene(0);
+      function releaseBalloons() {
+        for (let i = 0; i < 12; i++) {
+          const b = document.createElement('div');
+          b.classList.add('balloon');
+          b.style.left = Math.random() * 90 + "vw";
+          b.style.background = ["#c58c5d", "#a47148", "#8b5e34", "#6b4226", "#e6ccb2"][i % 5];
+          b.style.animationDuration = (4 + Math.random() * 2) + "s";
+          document.body.appendChild(b);
+        }
+      }
+
+      document.body.addEventListener('click', () => {
+        if (current === 2) {
+          blowCandles();
+          current++;
+          return;
+        }
+        if (current < scenes.length - 1) {
+          current++;
+          showScene(current);
+        }
+      });
+
+      showScene(0);
+    };
   </script>
 </body>
 </html>
