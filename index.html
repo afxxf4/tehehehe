@@ -1,0 +1,87 @@
+<!-- Bouquet Scene -->
+<div id="bouquet" class="bouquet"></div>
+
+<style>
+  .bouquet {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.8);
+    display: flex;
+    flex-wrap: wrap;
+    width: 220px;
+    opacity: 0;
+    animation: fadeInBouquet 3s ease forwards 2s;
+  }
+
+  /* Roses */
+  .rose {
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle at 30% 30%, #ff4d6d, #b22222 70%);
+    border-radius: 50%;
+    margin: -8px;
+    opacity: 0;
+    transform: scale(0.2);
+    animation: bloom 1s ease-out forwards;
+  }
+
+  /* Delay each rose bloom slightly */
+  .rose:nth-child(1) { animation-delay: 2.2s; }
+  .rose:nth-child(2) { animation-delay: 2.4s; }
+  .rose:nth-child(3) { animation-delay: 2.6s; }
+  .rose:nth-child(4) { animation-delay: 2.8s; }
+  .rose:nth-child(5) { animation-delay: 3.0s; }
+  .rose:nth-child(6) { animation-delay: 3.2s; }
+  .rose:nth-child(7) { animation-delay: 3.4s; }
+  .rose:nth-child(8) { animation-delay: 3.6s; }
+  .rose:nth-child(9) { animation-delay: 3.8s; }
+  .rose:nth-child(10) { animation-delay: 4.0s; }
+  .rose:nth-child(11) { animation-delay: 4.2s; }
+  .rose:nth-child(12) { animation-delay: 4.4s; }
+  .rose:nth-child(13) { animation-delay: 4.6s; }
+  .rose:nth-child(14) { animation-delay: 4.8s; }
+  .rose:nth-child(15) { animation-delay: 5.0s; }
+  .rose:nth-child(16) { animation-delay: 5.2s; }
+  .rose:nth-child(17) { animation-delay: 5.4s; }
+  .rose:nth-child(18) { animation-delay: 5.6s; }
+  .rose:nth-child(19) { animation-delay: 5.8s; }
+
+  /* Lacy cone wrap */
+  .lace {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 240px;
+    height: 160px;
+    background: repeating-conic-gradient(white 0% 10%, transparent 10% 20%);
+    border-radius: 50% / 30%;
+    opacity: 0.9;
+    z-index: -1;
+  }
+
+  @keyframes fadeInBouquet {
+    to { opacity: 1; }
+  }
+
+  @keyframes bloom {
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+</style>
+
+<script>
+  // Add roses dynamically
+  const bouquet = document.getElementById("bouquet");
+  for (let i = 0; i < 19; i++) {
+    let rose = document.createElement("div");
+    rose.className = "rose";
+    bouquet.appendChild(rose);
+  }
+  let lace = document.createElement("div");
+  lace.className = "lace";
+  bouquet.appendChild(lace);
+</script>
