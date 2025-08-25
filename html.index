@@ -6,7 +6,7 @@
   <style>
     body {
       margin: 0;
-      background-color: #d9a58f; /* same soft background */
+      background-color: #d9a58f;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -47,45 +47,43 @@
     /* Cake */
     .cake {
       position: relative;
-      width: 200px;
-      height: 120px;
+      width: 220px;
+      height: 130px;
       margin: 0 auto;
       background: #6b3e2e;
-      border-radius: 10px;
-      box-shadow: inset -5px -5px 0 #5a3225;
+      border-radius: 12px;
+      box-shadow: inset -6px -6px 0 #5a3225;
     }
 
     .icing {
       position: absolute;
       top: 0;
       width: 100%;
-      height: 40px;
+      height: 45px;
       background: #f5d6c6;
-      border-radius: 10px 10px 0 0;
+      border-radius: 12px 12px 0 0;
     }
 
     .candle {
       position: absolute;
       bottom: 100%;
-      width: 8px;
-      height: 30px;
+      width: 10px;
+      height: 35px;
       background: #fff;
-      left: 50%;
-      transform: translateX(-50%);
     }
 
-    .candle:nth-child(1) { left: 30px; }
-    .candle:nth-child(2) { left: 70px; }
-    .candle:nth-child(3) { left: 110px; }
-    .candle:nth-child(4) { left: 150px; }
-    .candle:nth-child(5) { left: 90px; }
+    .candle:nth-child(2) { left: 40px; }
+    .candle:nth-child(3) { left: 80px; }
+    .candle:nth-child(4) { left: 120px; }
+    .candle:nth-child(5) { left: 160px; }
+    .candle:nth-child(6) { left: 200px; }
 
     .flame {
       position: absolute;
-      top: -15px;
+      top: -18px;
       left: 50%;
-      width: 12px;
-      height: 20px;
+      width: 14px;
+      height: 22px;
       background: radial-gradient(circle, #ffdb58, #ff8c00);
       border-radius: 50%;
       transform: translateX(-50%);
@@ -93,19 +91,19 @@
     }
 
     @keyframes flicker {
-      from { transform: translateX(-50%) scale(1); opacity: 0.9; }
+      from { transform: translateX(-50%) scale(1); opacity: 0.85; }
       to { transform: translateX(-50%) scale(1.1); opacity: 1; }
     }
 
     /* Balloons */
     .balloon {
       position: absolute;
-      bottom: -150px;
+      bottom: -120px;
       width: 60px;
       height: 80px;
-      border-radius: 50% 50% 45% 55%;
+      border-radius: 50%;
       background: #c58c5d;
-      animation: float 6s linear infinite;
+      animation: float 6s linear forwards;
     }
 
     .balloon::after {
@@ -120,22 +118,25 @@
     }
 
     @keyframes float {
-      0% { transform: translateY(0) scale(1); opacity: 1; }
-      100% { transform: translateY(-110vh) scale(1.1); opacity: 0; }
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-120vh); opacity: 0; }
     }
   </style>
 </head>
 <body>
+  <!-- Scene 1 -->
   <div class="scene scene1 active">
     <div>Happy Birthday my kuchikuchikuuu &lt;3</div>
     <div class="blink">tap on the screen</div>
   </div>
 
+  <!-- Scene 2 -->
   <div class="scene scene2">
     <div>Here is a cake for all the years you haven’t had your own cake :33</div>
     <div class="blink">tap on the screen</div>
   </div>
 
+  <!-- Scene 3 -->
   <div class="scene scene3">
     <div class="cake">
       <div class="icing"></div>
@@ -147,8 +148,6 @@
     </div>
     <div class="blink">tap on the screen</div>
   </div>
-
-  <div class="scene scene4"></div>
 
   <script>
     const scenes = document.querySelectorAll('.scene');
@@ -166,16 +165,14 @@
     }
 
     function releaseBalloons() {
-      const scene4 = document.querySelector('.scene4');
-      for (let i = 0; i < 19; i++) {
+      for (let i = 0; i < 12; i++) {
         const b = document.createElement('div');
         b.classList.add('balloon');
         b.style.left = Math.random() * 90 + "vw";
         b.style.background = ["#c58c5d", "#a47148", "#8b5e34", "#6b4226", "#e6ccb2"][i % 5];
         b.style.animationDuration = (4 + Math.random() * 2) + "s";
-        scene4.appendChild(b);
+        document.body.appendChild(b);
       }
-      showScene(3); // keep scene3 visible while balloons float
     }
 
     document.body.addEventListener('click', () => {
