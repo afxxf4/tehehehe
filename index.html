@@ -6,27 +6,25 @@
     position: absolute;
     bottom: 50px;
     left: 50%;
-    transform: translateX(-50%) scale(0.8);
+    transform: translateX(-50%) scale(0.9);
     display: flex;
     flex-wrap: wrap;
-    width: 220px;
+    width: 260px;
+    justify-content: center;
     opacity: 0;
-    animation: fadeInBouquet 3s ease forwards 2s;
+    animation: fadeInBouquet 2s ease forwards 2s;
   }
 
-  /* Roses */
   .rose {
-    width: 40px;
-    height: 40px;
-    background: radial-gradient(circle at 30% 30%, #ff4d6d, #b22222 70%);
-    border-radius: 50%;
-    margin: -8px;
+    width: 60px;
+    height: 60px;
+    margin: -10px;
     opacity: 0;
     transform: scale(0.2);
     animation: bloom 1s ease-out forwards;
   }
 
-  /* Delay each rose bloom slightly */
+  /* Sequential bloom delays */
   .rose:nth-child(1) { animation-delay: 2.2s; }
   .rose:nth-child(2) { animation-delay: 2.4s; }
   .rose:nth-child(3) { animation-delay: 2.6s; }
@@ -47,16 +45,16 @@
   .rose:nth-child(18) { animation-delay: 5.6s; }
   .rose:nth-child(19) { animation-delay: 5.8s; }
 
-  /* Lacy cone wrap */
+  /* White lace cone */
   .lace {
     position: absolute;
-    bottom: -60px;
+    bottom: -80px;
     left: 50%;
     transform: translateX(-50%);
-    width: 240px;
-    height: 160px;
+    width: 280px;
+    height: 200px;
     background: repeating-conic-gradient(white 0% 10%, transparent 10% 20%);
-    border-radius: 50% / 30%;
+    border-radius: 50% / 40%;
     opacity: 0.9;
     z-index: -1;
   }
@@ -74,13 +72,28 @@
 </style>
 
 <script>
-  // Add roses dynamically
   const bouquet = document.getElementById("bouquet");
+
+  // Simple SVG rose (petals + stem)
+  const roseSVG = `
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="32" cy="20" r="12" fill="#b22222"/>
+      <circle cx="26" cy="18" r="10" fill="#d40000"/>
+      <circle cx="38" cy="18" r="10" fill="#d40000"/>
+      <circle cx="32" cy="26" r="10" fill="#8b0000"/>
+      <rect x="30" y="32" width="4" height="30" fill="green"/>
+    </svg>
+  `;
+
+  // Generate 19 roses
   for (let i = 0; i < 19; i++) {
     let rose = document.createElement("div");
     rose.className = "rose";
+    rose.innerHTML = roseSVG;
     bouquet.appendChild(rose);
   }
+
+  // Add lace
   let lace = document.createElement("div");
   lace.className = "lace";
   bouquet.appendChild(lace);
