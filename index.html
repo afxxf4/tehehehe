@@ -4,27 +4,33 @@
 <style>
   .bouquet {
     position: absolute;
-    bottom: 50px;
+    bottom: 60px;
     left: 50%;
-    transform: translateX(-50%) scale(0.9);
+    transform: translateX(-50%) scale(1.2);
+    width: 400px;
     display: flex;
-    flex-wrap: wrap;
-    width: 260px;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     opacity: 0;
     animation: fadeInBouquet 2s ease forwards 2s;
   }
 
+  .row {
+    display: flex;
+    justify-content: center;
+    margin-top: -10px; /* overlap rows for density */
+  }
+
   .rose {
-    width: 60px;
-    height: 60px;
-    margin: -10px;
+    width: 80px;
+    height: 80px;
+    margin: -5px;
     opacity: 0;
     transform: scale(0.2);
     animation: bloom 1s ease-out forwards;
   }
 
-  /* Sequential bloom delays */
+  /* Sequential bloom effect */
   .rose:nth-child(1) { animation-delay: 2.2s; }
   .rose:nth-child(2) { animation-delay: 2.4s; }
   .rose:nth-child(3) { animation-delay: 2.6s; }
@@ -45,14 +51,14 @@
   .rose:nth-child(18) { animation-delay: 5.6s; }
   .rose:nth-child(19) { animation-delay: 5.8s; }
 
-  /* White lace cone */
+  /* Lace wrap */
   .lace {
     position: absolute;
-    bottom: -80px;
+    bottom: -120px;
     left: 50%;
     transform: translateX(-50%);
-    width: 280px;
-    height: 200px;
+    width: 420px;
+    height: 260px;
     background: repeating-conic-gradient(white 0% 10%, transparent 10% 20%);
     border-radius: 50% / 40%;
     opacity: 0.9;
@@ -74,7 +80,7 @@
 <script>
   const bouquet = document.getElementById("bouquet");
 
-  // Simple SVG rose (petals + stem)
+  // Simple SVG rose
   const roseSVG = `
     <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
       <circle cx="32" cy="20" r="12" fill="#b22222"/>
@@ -85,15 +91,24 @@
     </svg>
   `;
 
-  // Generate 19 roses
-  for (let i = 0; i < 19; i++) {
-    let rose = document.createElement("div");
-    rose.className = "rose";
-    rose.innerHTML = roseSVG;
-    bouquet.appendChild(rose);
-  }
+  // Bouquet rows: 1 + 2 + 3 + 4 + 5 + 4 = 19 roses
+  const rows = [1, 2, 3, 4, 5, 4];
+  let roseIndex = 0;
 
-  // Add lace
+  rows.forEach(count => {
+    let row = document.createElement("div");
+    row.className = "row";
+    for (let i = 0; i < count; i++) {
+      let rose = document.createElement("div");
+      rose.className = "rose";
+      rose.innerHTML = roseSVG;
+      row.appendChild(rose);
+      roseIndex++;
+    }
+    bouquet.appendChild(row);
+  });
+
+  // Add lace wrap
   let lace = document.createElement("div");
   lace.className = "lace";
   bouquet.appendChild(lace);
